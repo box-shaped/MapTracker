@@ -1,0 +1,37 @@
+{
+    "allowed_players": [
+        "Flaxenbox",
+        "RRatkingg",
+        "LoreLore999"
+    ],
+    "whitelist": [
+        "Flaxenbox",
+        "RRatkingg",
+        "LoreLore999"
+    ],
+    "regions": {
+        "Region1": {
+            "bound1": [0, 0, 0],
+            "bound2": [100, 100, 100],
+            "whitelist": [
+                "Flaxenbox",
+                "RRatkingg",
+                "LoreLore999"
+            ],
+            "logging_status": true,
+            "exclude_whitelist": false
+        },
+        "Area2": {
+            "bound1": [-50, -50, -50],
+            "bound2": [50, 50, 50],
+            "whitelist": [
+                "Flaxenbox",
+                "RRatkingg",
+                "LoreLore999"
+            ],
+            "logging_status": true,
+            "exclude_whitelist": false
+        }
+    },
+    "log_channel": 1410988235668328569
+}
