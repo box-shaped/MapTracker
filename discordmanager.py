@@ -147,14 +147,26 @@ async def tracker(ctx, *args):
 
     cmd = args[0].lower()
     if cmd == "manual":
-        if args[1] == "check":
+        if len(args) > 1 and args[1] == "check":
             detectedplayers = mapgrabber.check_all_regions()
-            await ctx.send(detectedplayers)
+            if not detectedplayers:
+                await ctx.send("No players detected in any region.")
+            else:
+                msg = "Players detected:\n"
+                for region, players in detectedplayers.items():
+                    if players:
+                        player_names = ', '.join([p['name'] for p in players])
+                        msg += f"Region '{region}': {player_names}\n"
+                await ctx.send(msg)
             return
-        if args[1] == "checkregion" and len(args) > 1:
-            region_name = args[1]
+        if len(args) > 2 and args[1] == "checkregion":
+            region_name = args[2]
             detectedplayers = mapgrabber.check_region_presence(region_name)
-            await ctx.send(detectedplayers)
+            if not detectedplayers:
+                await ctx.send(f"No players detected in region '{region_name}'.")
+            else:
+                player_names = ', '.join([p['name'] for p in detectedplayers])
+                await ctx.send(f"Players detected in region '{region_name}': {player_names}")
             return
     if cmd == "logging":
         if args[1] == "config":
