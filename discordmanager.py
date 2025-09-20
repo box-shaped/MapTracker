@@ -142,14 +142,18 @@ async def ping(ctx):
 @bot.command()
 async def tracker(ctx, *args):
     if not args:
+        print("[tracker] No arguments provided.")
         await ctx.send("No arguments provided.")
         return
 
     cmd = args[0].lower()
     if cmd == "manual":
+        print(f"[tracker] Manual command received: {args}")
         if len(args) > 1 and args[1] == "check":
+            print("[tracker] Performing manual check for all regions.")
             detectedplayers = mapgrabber.check_all_regions()
             if not detectedplayers:
+                print("[tracker] No players detected in any region.")
                 await ctx.send("No players detected in any region.")
             else:
                 msg = "Players detected:\n"
@@ -157,49 +161,62 @@ async def tracker(ctx, *args):
                     if players:
                         player_names = ', '.join([p['name'] for p in players])
                         msg += f"Region '{region}': {player_names}\n"
+                        print(f"[tracker] Region '{region}': {player_names}")
                 await ctx.send(msg)
             return
         if len(args) > 2 and args[1] == "checkregion":
             region_name = args[2]
+            print(f"[tracker] Performing manual check for region: {region_name}")
             detectedplayers = mapgrabber.check_region_presence(region_name)
             if not detectedplayers:
+                print(f"[tracker] No players detected in region '{region_name}'.")
                 await ctx.send(f"No players detected in region '{region_name}'.")
             else:
                 player_names = ', '.join([p['name'] for p in detectedplayers])
+                print(f"[tracker] Players detected in region '{region_name}': {player_names}")
                 await ctx.send(f"Players detected in region '{region_name}': {player_names}")
             return
     if cmd == "logging":
+        print(f"[tracker] Logging command received: {args}")
         if args[1] == "config":
+            print(f"[tracker] Logging config command received: {args}")
             if args[2] == "region":
                 region_name = args[3]
                 action = args[4].lower()
+                print(f"[tracker] Logging config for region '{region_name}', action '{action}'")
                 if region_name not in mapgrabber.config.get("regions", {}):
+                    print(f"[tracker] Region {region_name} not found.")
                     await ctx.send(f"Region {region_name} not found.")
                     return
 
                 if action == "logging_status":
                     if len(args) < 6:
+                        print("[tracker] Missing argument for logging_status.")
                         await ctx.send("Usage: .map tracker logging config region <region_name> logging_status <true|false>")
                         return
                     logging_status = args[5].lower() == "true"
                     mapgrabber.config["regions"][region_name]["logging_status"] = logging_status
                     with open("config.json", "w", encoding="utf-8") as write_file:
                         json.dump(mapgrabber.config, write_file, indent=4)
+                    print(f"[tracker] Set logging_status for region {region_name} to {logging_status}.")
                     await ctx.send(f"Set logging_status for region {region_name} to {logging_status}.")
                     return
 
                 elif action == "exclude_whitelist":
                     if len(args) < 6:
+                        print("[tracker] Missing argument for exclude_whitelist.")
                         await ctx.send("Usage: .map tracker logging config region <region_name> exclude_whitelist <true|false>")
                         return
                     exclude = args[5].lower() == "true"
                     mapgrabber.config["regions"][region_name]["exclude_whitelist"] = exclude
                     with open("config.json", "w", encoding="utf-8") as write_file:
                         json.dump(mapgrabber.config, write_file, indent=4)
+                    print(f"[tracker] Set exclude_whitelist for region {region_name} to {exclude}.")
                     await ctx.send(f"Set exclude_whitelist for region {region_name} to {exclude}.")
                     return
 
                 else:
+                    print(f"[tracker] Invalid action '{action}'.")
                     await ctx.send("Invalid action. Use logging_status or exclude_whitelist.")
                     return
             
