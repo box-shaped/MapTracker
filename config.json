@@ -1,0 +1,72 @@
+{
+    "allowed_players": [
+        "Flaxenbox",
+        "RRatkingg",
+        "LoreLore999"
+    ],
+    "whitelist": [
+        "Flaxenbox",
+        "RRatkingg",
+        "LoreLore999"
+    ],
+    "regions": {
+        "Region1": {
+            "bound1": [
+                0,
+                0,
+                0
+            ],
+            "bound2": [
+                100,
+                100,
+                100
+            ],
+            "whitelist": [
+                "Flaxenbox",
+                "RRatkingg",
+                "LoreLore999"
+            ],
+            "logging_status": true,
+            "exclude_whitelist": false
+        },
+        "Area2": {
+            "bound1": [
+                -50,
+                -50,
+                -50
+            ],
+            "bound2": [
+                50,
+                50,
+                50
+            ],
+            "whitelist": [
+                "Flaxenbox",
+                "RRatkingg",
+                "LoreLore999"
+            ],
+            "logging_status": true,
+            "exclude_whitelist": false
+        },
+        "Valentine": {
+            "bound1": [
+                6767,
+                40,
+                9456
+            ],
+            "bound2": [
+                7128,
+                150,
+                10000
+            ],
+            "logging_status": true,
+            "exclude_whitelist": false,
+            "whitelist": [
+                "Flaxenbox",
+                "RRatkingg",
+                "LoreLore999"
+            ]
+        }
+    },
+    "log_channel": 1410988235668328569
+}
